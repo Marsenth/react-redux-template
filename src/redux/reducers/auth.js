@@ -49,6 +49,8 @@ const solicitudes = (state = { ...initialState }, action) => {
         LOGIN: {
           ...state.LOGIN,
           loading: true,
+          data: null,
+          error: null,
         },
       };
     case 'LOGIN_SUCCESS':
@@ -57,6 +59,7 @@ const solicitudes = (state = { ...initialState }, action) => {
         LOGIN: {
           ...state.LOGIN,
           loading: false,
+          error: null,
           data: action.data,
         },
       };

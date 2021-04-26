@@ -1,15 +1,33 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Form, Input, Button, Modal,
+} from 'antd';
+import { login } from '../redux/actions/auth';
 import '../static/styles/login.sass';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth.LOGIN);
+
+  const showError = ({ title = 'This is an error message', content }) => {
+    Modal.error({
+      title,
+      ...content ? { content } : {},
+    });
+  };
+
   const onFinish = (values) => {
-    console.log('Success:', values);
+    dispatch(login(values));
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    showError({ content: errorInfo.errorFields[0].errors[0] });
   };
+
+  useEffect(() => {
+    if (error) showError({ title: error.name, content: error.message });
+  }, [error]);
 
   return (
     <div className="login">
@@ -36,7 +54,7 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={loading}>
             Submit
           </Button>
         </Form.Item>
