@@ -1,0 +1,25 @@
+{
+    "extends": [
+      "airbnb-base",
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "mocha": true,
+      "browser": true,
+      "es6": true,
+      "jest": true
+    },
+    "rules": {
+      "class-methods-use-this": "off",
+      "space-before-function-paren": "off",
+      "import/prefer-default-export": "off",
+      "prefer-promise-reject-errors": "off",
+      "react/prop-types": "off",
+      "camelcase": "off"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2019
+    }
+}
+  
