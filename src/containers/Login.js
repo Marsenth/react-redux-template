@@ -8,7 +8,7 @@ import '../static/styles/login.sass';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth.LOGIN);
+  const { data, loading, error } = useSelector((state) => state.auth.LOGIN);
 
   const showError = ({ title = 'This is an error message', content }) => {
     Modal.error({
@@ -26,8 +26,12 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (error) showError({ title: error.name, content: error.message });
-  }, [error]);
+    if (!loading) {
+      if (error) {
+        showError({ title: error.name, content: error.message });
+      }
+    }
+  }, [data, error]);
 
   return (
     <div className="login">

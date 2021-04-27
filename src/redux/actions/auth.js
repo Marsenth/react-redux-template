@@ -9,3 +9,7 @@ export const login = (data) => ({
   method: 'POST',
   data,
 });
+
+export const logout = () => ({
+  type: 'LOGOUT',
+});

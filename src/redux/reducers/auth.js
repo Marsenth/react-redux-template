@@ -11,7 +11,7 @@ const initialState = {
   },
 };
 
-const solicitudes = (state = { ...initialState }, action) => {
+const auth = (state = { ...initialState }, action) => {
   switch (action.type) {
     case 'AUTH':
       return {
@@ -76,11 +76,11 @@ const solicitudes = (state = { ...initialState }, action) => {
           },
         },
       };
-    case 'RESET':
+    case 'LOGOUT':
       return { ...initialState };
     default:
       return state;
   }
 };
 
-export default solicitudes;
+export default auth;

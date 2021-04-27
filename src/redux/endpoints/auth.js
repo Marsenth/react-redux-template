@@ -1,4 +1,4 @@
 export default {
-  AUTH: '/user/me',
-  LOGIN: '/oauth2/v2/token',
+  AUTH: '/auth/me',
+  LOGIN: '/auth/login',
 };
