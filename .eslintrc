@@ -16,7 +16,8 @@
       "import/prefer-default-export": "off",
       "prefer-promise-reject-errors": "off",
       "react/prop-types": "off",
-      "camelcase": "off"
+      "camelcase": "off",
+      "import/no-extraneous-dependencies": "off"
     },
     "parserOptions": {
       "ecmaVersion": 2019
