@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   AUTH: {
     data: null,
     loading: false,

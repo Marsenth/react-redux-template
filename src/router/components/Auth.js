@@ -6,14 +6,16 @@ import { authenticate } from '../../redux/actions/auth';
 const Auth = ({ children }) => {
   const { replace } = useHistory();
   const { pathname } = useLocation();
-  const { AUTH, LOGIN } = useSelector((state) => state.auth);
+  const { auth: { AUTH, LOGIN } } = useSelector();
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
+
+  const dispatchAuthenticate = () => dispatch(authenticate());
 
   useEffect(() => {
     if (!AUTH.data && !AUTH.error) {
       if (token) {
-        dispatch(authenticate());
+        dispatchAuthenticate();
       } else if (pathname !== '/login') replace('/login');
     } else if (AUTH.data && pathname.split('/')[0] !== 'mario-app') replace('/mario-app');
   }, [AUTH.data]);
@@ -25,12 +27,12 @@ const Auth = ({ children }) => {
   useEffect(() => {
     if (LOGIN.data) {
       localStorage.setItem('token', LOGIN.data);
-      dispatch(authenticate());
+      dispatchAuthenticate();
     }
   }, [LOGIN.data]);
 
   return AUTH.loading ? (
-    <p>Loading</p>
+    <p className="loading">Loading</p>
   ) : (
     children
   );

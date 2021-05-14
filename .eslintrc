@@ -17,7 +17,8 @@
       "prefer-promise-reject-errors": "off",
       "react/prop-types": "off",
       "camelcase": "off",
-      "import/no-extraneous-dependencies": "off"
+      "import/no-extraneous-dependencies": "off",
+      "react/display-name": "off"
     },
     "parserOptions": {
       "ecmaVersion": 2019
