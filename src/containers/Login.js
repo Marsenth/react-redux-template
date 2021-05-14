@@ -8,7 +8,7 @@ import '../static/styles/login.sass';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { auth: { LOGIN: { data, loading, error } } } = useSelector();
+  const { auth: { LOGIN: { data, loading, error } } } = useSelector((state) => state);
 
   const showError = ({ title = 'This is an error message', content }) => {
     Modal.error({
@@ -46,7 +46,7 @@ const Login = () => {
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
-          <Input />
+          <Input data-testid="login_username_input"/>
         </Form.Item>
 
         <Form.Item
@@ -54,7 +54,7 @@ const Login = () => {
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password />
+          <Input.Password data-testid="login_password_input"/>
         </Form.Item>
 
         <Form.Item>

@@ -6,7 +6,7 @@ import { authenticate } from '../../redux/actions/auth';
 const Auth = ({ children }) => {
   const { replace } = useHistory();
   const { pathname } = useLocation();
-  const { auth: { AUTH, LOGIN } } = useSelector();
+  const { auth: { AUTH, LOGIN } } = useSelector((state) => state);
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
 
