@@ -1,15 +1,15 @@
 export const authenticate = (data) => ({
   types: ['AUTH', 'AUTH_SUCCESS', 'AUTH_ERROR'],
   method: 'GET',
-  data,
+  data
 });
 
 export const login = (data) => ({
   types: ['LOGIN', 'LOGIN_SUCCESS', 'LOGIN_ERROR'],
   method: 'POST',
-  data,
+  data
 });
 
 export const logout = () => ({
-  type: 'LOGOUT',
+  type: 'LOGOUT'
 });

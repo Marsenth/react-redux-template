@@ -18,7 +18,7 @@ const AppRoute = ({ component: Component, ...rest }) => (
       const RouteComponent = () => (
         <Component {...props}>
           {rest.subRoutes ? <CreateRoutes {...{
-            routes: rest.subRoutes,
+            routes: rest.subRoutes
           }} /> : null}
         </Component>
       );

@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
-import { useQuery } from '@apollo/client';
 import MainLayout from '../layouts/MainLayout';
-import { GET_HOME_DATA } from '../graphql/queries/home';
 import '../static/styles/home.sass';
 
 const Home = ({ children }) => {
-  const { loading, data, error } = useQuery(GET_HOME_DATA);
+  const { loading, data, error } = { loading: false, data: { home: 'Hola mundo' } };
 
   return loading ? (
     <p>Loading</p>

@@ -7,11 +7,11 @@ export default [
   {
     exact: true,
     path: '/login',
-    component: Login,
+    component: Login
   },
   {
     exact: true,
     path: '/mario-app',
-    component: Home,
-  },
+    component: Home
+  }
 ];

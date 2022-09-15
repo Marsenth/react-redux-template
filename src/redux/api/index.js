@@ -7,14 +7,14 @@ const api = ({ dispatch }) => (next) => (action) => {
     baseURL = process.env.REACT_APP_API_SERVER,
     types,
     method,
-    data,
+    data
   } = action;
 
   const isRequest = isArray(types) && size(types) === 3;
 
   const nextAction = isRequest ? {
     ...action,
-    type: types[0],
+    type: types[0]
   } : action;
 
   // Call the next dispatch method in the middleware chain.
@@ -35,11 +35,11 @@ const api = ({ dispatch }) => (next) => (action) => {
       baseURL,
       url: requestURL,
       method,
-      data,
+      data
     }).then((response) => {
       const successDispatch = () => ({
         type: types[1],
-        data: response.data,
+        data: response.data
       });
 
       dispatch(successDispatch());
@@ -51,7 +51,7 @@ const api = ({ dispatch }) => (next) => (action) => {
         type: types[2],
         name,
         message,
-        status,
+        status
       });
 
       dispatch(errorDispatch());

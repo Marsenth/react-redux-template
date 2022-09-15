@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Form, Input, Button, Modal,
+  Form, Input, Button, Modal
 } from 'antd';
 import { login } from '../redux/actions/auth';
 import '../static/styles/login.sass';
@@ -13,7 +13,7 @@ const Login = () => {
   const showError = ({ title = 'This is an error message', content }) => {
     Modal.error({
       title,
-      ...content ? { content } : {},
+      ...content ? { content } : {}
     });
   };
 

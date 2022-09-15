@@ -5,7 +5,7 @@ import middleware from './api';
 import rootReducer from './reducers';
 
 const store = createStore(combineReducers(rootReducer), composeWithDevTools(
-  applyMiddleware(middleware),
+  applyMiddleware(middleware)
 ));
 
 export default store;
