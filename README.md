@@ -2,6 +2,12 @@
 
 https://github.com/Marsenth/express-api-template
 
+Then follow the README to launch server.
+
+# Test environments
+
+REACT_APP_API_SERVER=<EXPRESS_API_TEMPLATE_SERVER>/api/v1
+
 ## Available Scripts
 
 In the project directory, you can run:
