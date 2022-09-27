@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UploadOutlined
 } from '@ant-design/icons';
-import { logout } from '../redux/actions/auth';
+import useAuthActions from '../redux/actions/auth';
 
 import '../static/styles/main-layout.sass';
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = ({ children }) => {
-  const dispatch = useDispatch();
+  const { logout } = useAuthActions();
   const [collapsed, collapse] = useState(false);
 
   const toggle = () => {
@@ -22,7 +21,7 @@ const MainLayout = ({ children }) => {
 
   const outlog = () => {
     localStorage.removeItem('token');
-    dispatch(logout());
+    logout();
   };
 
   return (

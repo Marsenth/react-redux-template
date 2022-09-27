@@ -13,7 +13,7 @@ const useAuthActions = () => createActions({
     data
   }),
   logout: () => ({
-    endpoint: 'LOGOUT'
+    type: 'LOGOUT'
   })
 });
 

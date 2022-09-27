@@ -10,12 +10,12 @@ const api = ({ dispatch }) => (next) => (action) => {
 
   const requestURL = endpoints[endpoint];
 
-  const nextAction = isRequest ? {
+  const nextAction = {
     ...action,
     ...(requestURL ? {
       type: endpoint
     } : null)
-  } : action;
+  };
 
   // Call the next dispatch method in the middleware chain.
   const returnValue = next(nextAction);
