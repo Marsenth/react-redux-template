@@ -1,15 +1,20 @@
-export const authenticate = (data) => ({
-  types: ['AUTH', 'AUTH_SUCCESS', 'AUTH_ERROR'],
-  method: 'GET',
-  data
+import { actionTypes } from '../endpoints';
+import createActions from '../hooks/createActions';
+
+const useAuthActions = () => createActions({
+  authenticate: (data) => ({
+    endpoint: actionTypes.AUTH,
+    method: 'GET',
+    data
+  }),
+  login: (data) => ({
+    endpoint: actionTypes.LOGIN,
+    method: 'POST',
+    data
+  }),
+  logout: () => ({
+    endpoint: 'LOGOUT'
+  })
 });
 
-export const login = (data) => ({
-  types: ['LOGIN', 'LOGIN_SUCCESS', 'LOGIN_ERROR'],
-  method: 'POST',
-  data
-});
-
-export const logout = () => ({
-  type: 'LOGOUT'
-});
+export default useAuthActions;

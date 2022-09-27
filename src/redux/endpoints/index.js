@@ -1,5 +1,10 @@
+import getActionTypes from '../helpers/getActionTypes';
 import auth from './auth';
 
-export default {
+const endpoints = {
   ...auth
 };
+
+export const actionTypes = getActionTypes(endpoints);
+
+export default endpoints;

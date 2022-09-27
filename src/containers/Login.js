@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Form, Input, Button, Modal
 } from 'antd';
-import { login } from '../redux/actions/auth';
 import '../static/styles/login.sass';
+import useAuthActions from '../redux/actions/auth';
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const { login } = useAuthActions();
   const { auth: { LOGIN: { data, loading, error } } } = useSelector((state) => state);
 
   const showError = ({ title = 'This is an error message', content }) => {
@@ -18,7 +18,7 @@ const Login = () => {
   };
 
   const onFinish = (values) => {
-    dispatch(login(values));
+    login(values);
   };
 
   const onFinishFailed = (errorInfo) => {

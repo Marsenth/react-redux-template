@@ -1,27 +1,26 @@
 import axios from 'axios';
-import { isArray, size } from 'lodash';
 import endpoints from '../endpoints';
 
 const api = ({ dispatch }) => (next) => (action) => {
   const {
-    baseURL = process.env.REACT_APP_API_SERVER,
-    types,
+    endpoint,
     method,
     data
   } = action;
 
-  const isRequest = isArray(types) && size(types) === 3;
+  const requestURL = endpoints[endpoint];
 
   const nextAction = isRequest ? {
     ...action,
-    type: types[0]
+    ...(requestURL ? {
+      type: endpoint
+    } : null)
   } : action;
 
   // Call the next dispatch method in the middleware chain.
   const returnValue = next(nextAction);
 
-  if (isRequest) {
-    const requestURL = endpoints[nextAction.type];
+  if (requestURL) {
     const token = localStorage.getItem('token') || '';
     const keepSession = JSON.parse(localStorage.getItem('keep_session'));
 
@@ -32,25 +31,22 @@ const api = ({ dispatch }) => (next) => (action) => {
     axios.defaults.headers.common['x-api-keep'] = keepSession;
 
     axios({
-      baseURL,
       url: requestURL,
       method,
       data
     }).then((response) => {
       const successDispatch = () => ({
-        type: types[1],
+        type: `${endpoint}_SUCCESS`,
         data: response.data
       });
 
       dispatch(successDispatch());
     }).catch((error) => {
-      const { name, message } = error.toJSON();
       const status = (error.response || {}).status || 404;
 
       const errorDispatch = () => ({
-        type: types[2],
-        name,
-        message,
+        type: `${endpoint}_ERROR`,
+        error,
         status
       });
 
