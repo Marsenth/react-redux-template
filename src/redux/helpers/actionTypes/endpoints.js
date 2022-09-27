@@ -1,4 +1,4 @@
-const getActionTypes = (endpoints) => {
+const getActionTypesFromEndpoints = (endpoints) => {
   const actionTypes = {};
 
   Object.keys(endpoints).forEach((endpoint) => {
@@ -14,4 +14,4 @@ const getActionTypes = (endpoints) => {
   return actionTypes;
 };
 
-export default getActionTypes;
+export default getActionTypesFromEndpoints;

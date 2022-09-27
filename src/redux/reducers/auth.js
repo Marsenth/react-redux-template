@@ -1,3 +1,6 @@
+import { actionTypes } from '../endpoints';
+import authActionTypes from '../helpers/actionTypes/auth';
+
 export const initialState = {
   AUTH: {
     data: null,
@@ -13,7 +16,7 @@ export const initialState = {
 
 const auth = (state = { ...initialState }, action) => {
   switch (action.type) {
-  case 'AUTH':
+  case actionTypes.AUTH:
     return {
       ...state,
       AUTH: {
@@ -21,7 +24,7 @@ const auth = (state = { ...initialState }, action) => {
         loading: true
       }
     };
-  case 'AUTH_SUCCESS':
+  case actionTypes.AUTH_SUCCESS:
     return {
       ...state,
       AUTH: {
@@ -30,7 +33,7 @@ const auth = (state = { ...initialState }, action) => {
         data: action.data
       }
     };
-  case 'AUTH_ERROR':
+  case actionTypes.AUTH_ERROR:
     return {
       ...state,
       AUTH: {
@@ -43,7 +46,7 @@ const auth = (state = { ...initialState }, action) => {
         }
       }
     };
-  case 'LOGIN':
+  case actionTypes.LOGIN:
     return {
       ...state,
       LOGIN: {
@@ -53,7 +56,7 @@ const auth = (state = { ...initialState }, action) => {
         error: null
       }
     };
-  case 'LOGIN_SUCCESS':
+  case actionTypes.LOGIN_SUCCESS:
     return {
       ...state,
       LOGIN: {
@@ -63,7 +66,7 @@ const auth = (state = { ...initialState }, action) => {
         data: action.data
       }
     };
-  case 'LOGIN_ERROR':
+  case actionTypes.LOGIN_ERROR:
     return {
       ...state,
       LOGIN: {
@@ -76,7 +79,7 @@ const auth = (state = { ...initialState }, action) => {
         }
       }
     };
-  case 'LOGOUT':
+  case authActionTypes.LOGOUT:
     return { ...initialState };
   default:
     return state;

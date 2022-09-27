@@ -1,4 +1,5 @@
 import { actionTypes } from '../endpoints';
+import authActionTypes from '../helpers/actionTypes/auth';
 import createActions from '../hooks/createActions';
 
 const useAuthActions = () => createActions({
@@ -13,7 +14,7 @@ const useAuthActions = () => createActions({
     data
   }),
   logout: () => ({
-    type: 'LOGOUT'
+    type: authActionTypes.LOGOUT
   })
 });
 
