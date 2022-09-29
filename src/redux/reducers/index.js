@@ -1,5 +1,3 @@
-import auth from './auth';
+import createReducersFromEndpoints from '../helpers/reducers/endpoints';
 
-export default {
-  auth
-};
+export default createReducersFromEndpoints();

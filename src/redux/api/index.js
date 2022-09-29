@@ -13,7 +13,8 @@ const api = ({ dispatch }) => (next) => (action) => {
   const nextAction = {
     ...action,
     ...(requestURL ? {
-      type: endpoint
+      type: endpoint,
+      loading: true
     } : null)
   };
 
@@ -37,6 +38,7 @@ const api = ({ dispatch }) => (next) => (action) => {
     }).then((response) => {
       const successDispatch = () => ({
         type: `${endpoint}_SUCCESS`,
+        loading: false,
         data: response.data
       });
 
@@ -46,6 +48,7 @@ const api = ({ dispatch }) => (next) => (action) => {
 
       const errorDispatch = () => ({
         type: `${endpoint}_ERROR`,
+        loading: false,
         error,
         status
       });
