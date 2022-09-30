@@ -8,6 +8,6 @@ export const endpointsInNamespaces = {
 
 const endpoints = destructNamespaces(endpointsInNamespaces);
 
-export const actionTypes = getActionTypesFromEndpoints(endpoints);
+export const endpointsActionTypes = getActionTypesFromEndpoints(endpoints);
 
 export default endpoints;

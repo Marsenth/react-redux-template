@@ -11,7 +11,7 @@ const Auth = ({ children }) => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (!AUTH.data && !AUTH.error) {
+    if (!AUTH.loading && !AUTH.data && !AUTH.error) {
       if (token) {
         authenticate();
       } else if (pathname !== '/login') replace('/login');

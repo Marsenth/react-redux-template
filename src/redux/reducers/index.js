@@ -1,3 +1,4 @@
-import createReducersFromEndpoints from '../helpers/reducers/endpoints';
+import createReducers from '../helpers/reducers/createReducers';
+import states from './customStates';
 
-export default createReducersFromEndpoints();
+export default createReducers(states);

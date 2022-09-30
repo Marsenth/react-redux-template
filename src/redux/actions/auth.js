@@ -1,19 +1,19 @@
-import { actionTypes } from '../endpoints';
-import authActionTypes from '../helpers/actionTypes/auth';
+import { endpointsActionTypes } from '../endpoints';
+import actionTypes from '../helpers/actionTypes';
 import createActions from '../hooks/createActions';
 
 const useAuthActions = () => createActions({
   authenticate: () => ({
-    endpoint: actionTypes.AUTH,
+    endpoint: endpointsActionTypes.AUTH,
     method: 'GET'
   }),
   login: (data) => ({
-    endpoint: actionTypes.LOGIN,
+    endpoint: endpointsActionTypes.LOGIN,
     method: 'POST',
     data
   }),
   logout: () => ({
-    type: authActionTypes.LOGOUT
+    type: actionTypes.LOGOUT
   })
 });
 

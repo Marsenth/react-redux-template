@@ -1,8 +1,8 @@
-import { actionTypes } from '../../endpoints';
+import { endpointsActionTypes } from '../../endpoints';
 
 const getEndpointNameFromType = (type) => {
   const croppedActionType = type.split('_').slice(0, -1).join('_');
-  const endpointName = actionTypes[croppedActionType] ? croppedActionType : type;
+  const endpointName = endpointsActionTypes[croppedActionType] ? croppedActionType : type;
 
   return endpointName;
 };

@@ -1,13 +1,15 @@
-import { endpointsInNamespaces, actionTypes } from '../../endpoints';
+import { endpointsInNamespaces, endpointsActionTypes } from '../../endpoints';
 import getEndpointNameFromType from '../endpoints/getEndpointNameFromType';
 
-const createReducersFromEndpoints = () => {
+const createReducersFromEndpoints = (states) => {
   const reducers = {};
 
   Object.keys(endpointsInNamespaces).forEach((endpointNamespace) => {
     const endpoints = endpointsInNamespaces[endpointNamespace];
 
     const initialState = {};
+    const namespaceInStates = states[endpointsInNamespaces];
+    delete states[endpointsInNamespaces];
 
     Object.keys(endpoints).forEach((endpointName) => {
       initialState[endpointName] = {
@@ -19,10 +21,23 @@ const createReducersFromEndpoints = () => {
 
     reducers[endpointNamespace] = (state = { ...initialState }, action) => {
       const {
-        type, loading, data, error
+        type, loading, data, error, ...rest
       } = action;
 
-      if (actionTypes[type]) {
+      const typeInStates = !!(namespaceInStates || {})[type];
+
+      if (typeInStates) {
+        // This overwrite the default state changed by the endpoint.
+        return {
+          ...state,
+          loading,
+          data,
+          error,
+          ...rest
+        };
+      }
+
+      if (endpointsActionTypes[type]) {
         const endpointName = getEndpointNameFromType(type);
 
         return {
