@@ -13,8 +13,9 @@ const api = ({ dispatch }) => (next) => (action) => {
   const nextAction = {
     ...action,
     ...(requestURL ? {
-      type: endpoint,
-      loading: true
+      called: true,
+      loading: true,
+      type: endpoint
     } : null)
   };
 
@@ -37,9 +38,10 @@ const api = ({ dispatch }) => (next) => (action) => {
       data
     }).then((response) => {
       const successDispatch = () => ({
-        type: `${endpoint}_SUCCESS`,
+        data: response.data,
+        error: null,
         loading: false,
-        data: response.data
+        type: `${endpoint}_SUCCESS`
       });
 
       dispatch(successDispatch());
@@ -47,10 +49,10 @@ const api = ({ dispatch }) => (next) => (action) => {
       const status = (error.response || {}).status || 404;
 
       const errorDispatch = () => ({
-        type: `${endpoint}_ERROR`,
-        loading: false,
         error,
-        status
+        loading: false,
+        status,
+        type: `${endpoint}_ERROR`
       });
 
       dispatch(errorDispatch());

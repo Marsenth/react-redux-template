@@ -13,9 +13,11 @@ const createReducersFromEndpoints = (states) => {
 
     Object.keys(endpoints).forEach((endpointName) => {
       initialState[endpointName] = {
+        called: null,
         data: null,
+        error: null,
         loading: false,
-        error: null
+        status: null
       };
     });
 
