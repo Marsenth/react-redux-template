@@ -1,7 +1,9 @@
-import homeStates from './home';
+import auth from './auth';
+import home from './home';
 
 const states = {
-  homeStates
+  auth,
+  home
 };
 
 export default states;

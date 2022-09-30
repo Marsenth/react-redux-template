@@ -1,7 +1,7 @@
-const home = {
+const auth = {
   WELCOME: {
     message: ''
   }
 };
 
-export default home;
+export default auth;

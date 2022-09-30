@@ -11,12 +11,11 @@ const api = ({ dispatch }) => (next) => (action) => {
   const requestURL = endpoints[endpoint];
 
   const nextAction = {
-    ...action,
     ...(requestURL ? {
       called: true,
       loading: true,
       type: endpoint
-    } : null)
+    } : action)
   };
 
   // Call the next dispatch method in the middleware chain.

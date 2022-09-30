@@ -1,11 +1,11 @@
-const createReducersFromStates = (states) => {
+const createReducersFromStates = (customStates) => {
   const reducers = {};
 
-  Object.keys(states).forEach((statesNamespace) => {
-    reducers[statesNamespace] = (state = { ...states[statesNamespace] }, action) => {
+  Object.keys(customStates).forEach((statesNamespace) => {
+    reducers[statesNamespace] = (state = { ...customStates[statesNamespace] }, action) => {
       const { type, ...rest } = action;
 
-      if (states[statesNamespace][type]) {
+      if (customStates[statesNamespace][type]) {
         return {
           ...state,
           [type]: {

@@ -23,7 +23,7 @@ const Auth = ({ children }) => {
   }, [AUTH.error]);
 
   useEffect(() => {
-    if (LOGIN.data) {
+    if (LOGIN.data && !AUTH.data) {
       localStorage.setItem('token', LOGIN.data);
       authenticate();
     }

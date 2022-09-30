@@ -1,19 +1,20 @@
+/* eslint-disable no-unused-vars */
 import { endpointsInNamespaces, endpointsActionTypes } from '../../endpoints';
 import getEndpointNameFromType from '../endpoints/getEndpointNameFromType';
 
-const createReducersFromEndpoints = (states) => {
+const createReducersFromEndpoints = (customStates, resetActionType) => {
   const reducers = {};
 
   Object.keys(endpointsInNamespaces).forEach((endpointNamespace) => {
     const endpoints = endpointsInNamespaces[endpointNamespace];
 
     const initialState = {};
-    const namespaceInStates = states[endpointsInNamespaces];
-    delete states[endpointsInNamespaces];
+    const namespaceInStates = customStates[endpointNamespace];
+    if (namespaceInStates) delete customStates[endpointNamespace];
 
     Object.keys(endpoints).forEach((endpointName) => {
       initialState[endpointName] = {
-        called: null,
+        called: false,
         data: null,
         error: null,
         loading: false,
@@ -23,21 +24,8 @@ const createReducersFromEndpoints = (states) => {
 
     reducers[endpointNamespace] = (state = { ...initialState }, action) => {
       const {
-        type, loading, data, error, ...rest
+        type, ...rest
       } = action;
-
-      const typeInStates = !!(namespaceInStates || {})[type];
-
-      if (typeInStates) {
-        // This overwrite the default state changed by the endpoint.
-        return {
-          ...state,
-          loading,
-          data,
-          error,
-          ...rest
-        };
-      }
 
       if (endpointsActionTypes[type]) {
         const endpointName = getEndpointNameFromType(type);
@@ -45,14 +33,23 @@ const createReducersFromEndpoints = (states) => {
         return {
           ...state,
           [endpointName]: {
-            data,
-            error,
-            loading
+            ...state[endpointName],
+            ...rest
           }
         };
       }
 
-      if (type === 'LOGOUT') return { ...initialState };
+      if ((namespaceInStates || {})[type]) {
+        return {
+          ...state,
+          [type]: {
+            ...state[type],
+            ...rest
+          }
+        };
+      }
+
+      if (type === resetActionType) return { ...initialState };
 
       return state;
     };
