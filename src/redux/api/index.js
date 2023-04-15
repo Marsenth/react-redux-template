@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { endpointsInNamespaces } from '../endpoints';
-import mutations from '../reducers/mutations';
+import endpoints from '../endpoints';
 
 const api = ({ dispatch }) => (next) => (action) => {
   const {
@@ -9,17 +8,10 @@ const api = ({ dispatch }) => (next) => (action) => {
     method,
     onError,
     onRequest,
-    onSuccess,
-    reducerName
+    onSuccess
   } = action;
 
-  const scopeOnEndpoints = endpointsInNamespaces[reducerName];
-  const scopeOnMutations = mutations[reducerName];
-  const scopeExists = !!scopeOnEndpoints || !!scopeOnMutations;
-
-  if (!scopeExists) throw new Error('Most pass a valid scopeName');
-
-  const requestURL = scopeOnEndpoints?.[endpoint];
+  const requestURL = endpoints?.[endpoint];
 
   const nextAction = {
     ...(requestURL ? {
@@ -56,7 +48,7 @@ const api = ({ dispatch }) => (next) => (action) => {
         type: `${endpoint}_SUCCESS`
       });
 
-      dispatch({ ...successDispatch(), reducerName });
+      dispatch(successDispatch());
     }).catch((error) => {
       const status = (error.response || {}).status || 404;
 
@@ -68,7 +60,7 @@ const api = ({ dispatch }) => (next) => (action) => {
         status
       });
 
-      dispatch({ ...errorDispatch(), reducerName });
+      dispatch(errorDispatch());
     });
   }
 

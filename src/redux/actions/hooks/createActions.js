@@ -1,13 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const createActions = (reducerName, actions) => {
+const createActions = (actions) => {
   const dispatch = useDispatch();
-  return bindActionCreators(Object.keys(actions).reduce(
-    (accum, key) => Object.assign(accum, {
-      [key]: () => ({ ...actions[key](), reducerName })
-    }), {}
-  ), dispatch);
+  return bindActionCreators(actions, dispatch);
 };
 
 export default createActions;

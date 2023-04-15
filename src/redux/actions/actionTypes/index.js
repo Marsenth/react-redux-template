@@ -1,7 +1,7 @@
 import auth from './auth';
 import home from './home';
 
-export const actionTypes = {
+const actionTypes = {
   ...auth,
   ...home
 };
