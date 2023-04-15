@@ -1,9 +1,9 @@
 import auth from './auth';
 import home from './home';
 
-const states = {
+const mutations = {
   auth,
   home
 };
 
-export default states;
+export default mutations;

@@ -10,8 +10,7 @@ const useAuthActions = () => createActions('auth', {
   login: (data) => ({
     endpoint: endpointsActionTypes.LOGIN,
     method: 'POST',
-    data,
-    message: 'dsaldldalads'
+    data
   }),
   logout: () => ({
     type: actionTypes.LOGOUT

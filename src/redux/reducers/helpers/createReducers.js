@@ -1,10 +1,10 @@
 import createReducersFromEndpoints from './createFromEndpoints';
-import createReducersFromStates from './createFromStates';
+import createReducersFromMutations from './createFromMutations';
 
-const createReducers = ({ customStates, resetActionType }) => {
+const createReducers = ({ mutations, resetActionType }) => {
   const reducers = {
-    ...createReducersFromEndpoints(customStates, resetActionType),
-    ...createReducersFromStates(customStates)
+    ...createReducersFromEndpoints(mutations, resetActionType),
+    ...createReducersFromMutations(mutations)
   };
 
   return reducers;

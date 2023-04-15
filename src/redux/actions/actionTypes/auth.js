@@ -1,5 +1,5 @@
-const authActionTypes = {
+const auth = {
   LOGOUT: 'LOGOUT'
 };
 
-export default authActionTypes;
+export default auth;

@@ -1,15 +1,16 @@
 import { endpointsInNamespaces, endpointsActionTypes } from '../../endpoints';
 import getEndpointNameFromType from '../../endpoints/helpers/getEndpointNameFromType';
 
-const createReducersFromEndpoints = (customStates, resetActionType) => {
+const createReducersFromEndpoints = (mutations, resetActionType) => {
   const reducers = {};
 
-  Object.keys(endpointsInNamespaces).forEach((endpointNamespace) => {
-    const endpoints = endpointsInNamespaces[endpointNamespace];
+  Object.keys(endpointsInNamespaces).forEach((endpointReducer) => {
+    const endpoints = endpointsInNamespaces[endpointReducer];
 
     const initialState = {};
-    const namespaceInStates = customStates[endpointNamespace];
-    if (namespaceInStates) delete customStates[endpointNamespace];
+    const reducerOnMutation = mutations[endpointReducer];
+
+    if (reducerOnMutation) delete mutations[endpointReducer];
 
     Object.keys(endpoints).forEach((endpointName) => {
       initialState[endpointName] = {
@@ -21,7 +22,7 @@ const createReducersFromEndpoints = (customStates, resetActionType) => {
       };
     });
 
-    reducers[endpointNamespace] = (state = { ...initialState }, action) => {
+    reducers[endpointReducer] = (state = { ...initialState }, action) => {
       const {
         called, data, error, loading, onRequest, onSuccess, onError, type
       } = action;
@@ -29,6 +30,10 @@ const createReducersFromEndpoints = (customStates, resetActionType) => {
       const rest = {
         called, data, error, loading
       };
+
+      const mutation = reducerOnMutation?.[type];
+
+      if (mutation) return mutation(state, action);
 
       if (endpointsActionTypes[type]) {
         const endpointName = getEndpointNameFromType(type);
@@ -46,16 +51,6 @@ const createReducersFromEndpoints = (customStates, resetActionType) => {
         return {
           ...state,
           [endpointName]: getNewScopeState()
-        };
-      }
-
-      if ((namespaceInStates || {})[type]) {
-        return {
-          ...state,
-          [type]: {
-            ...state[type],
-            ...rest
-          }
         };
       }
 

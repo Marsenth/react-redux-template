@@ -1,9 +1,9 @@
-import authActionTypes from './auth';
-import homeActionTypes from './home';
+import auth from './auth';
+import home from './home';
 
-const actionTypes = {
-  ...authActionTypes,
-  ...homeActionTypes
+export const actionTypes = {
+  ...auth,
+  ...home
 };
 
 export default actionTypes;

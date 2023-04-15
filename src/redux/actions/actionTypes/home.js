@@ -1,5 +1,5 @@
-const homeActionTypes = {
+const home = {
   WELCOME: 'WELCOME'
 };
 
-export default homeActionTypes;
+export default home;

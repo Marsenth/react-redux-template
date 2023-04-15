@@ -1,7 +1,7 @@
 import createReducers from './helpers/createReducers';
-import customStates from './customStates';
+import mutations from './mutations';
 
 export default createReducers({
-  customStates,
+  mutations,
   resetActionType: 'LOGOUT'
 });

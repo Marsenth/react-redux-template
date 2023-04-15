@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { endpointsInNamespaces } from '../endpoints';
-import states from '../reducers/customStates';
+import mutations from '../reducers/mutations';
 
 const api = ({ dispatch }) => (next) => (action) => {
   const {
@@ -14,8 +14,8 @@ const api = ({ dispatch }) => (next) => (action) => {
   } = action;
 
   const scopeOnEndpoints = endpointsInNamespaces[reducerName];
-  const scopeOnStates = states[reducerName];
-  const scopeExists = !!scopeOnEndpoints || !!scopeOnStates;
+  const scopeOnMutations = mutations[reducerName];
+  const scopeExists = !!scopeOnEndpoints || !!scopeOnMutations;
 
   if (!scopeExists) throw new Error('Most pass a valid scopeName');
 
