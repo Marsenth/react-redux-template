@@ -1,7 +1,7 @@
-import actionTypes from '../helpers/actionTypes';
-import createActions from '../hooks/createActions';
+import actionTypes from './actionTypes';
+import createActions from './hooks/createActions';
 
-const useHomeActions = () => createActions({
+const useHomeActions = () => createActions('home', {
   welcomeAction: () => ({
     type: actionTypes.WELCOME,
     message: '¡Hola amiguitos!'

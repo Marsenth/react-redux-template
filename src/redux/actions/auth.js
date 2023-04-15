@@ -1,8 +1,8 @@
 import { endpointsActionTypes } from '../endpoints';
-import actionTypes from '../helpers/actionTypes';
-import createActions from '../hooks/createActions';
+import actionTypes from './actionTypes';
+import createActions from './hooks/createActions';
 
-const useAuthActions = () => createActions({
+const useAuthActions = () => createActions('auth', {
   authenticate: () => ({
     endpoint: endpointsActionTypes.AUTH,
     method: 'GET'

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { endpointsInNamespaces, endpointsActionTypes } from '../../endpoints';
-import getEndpointNameFromType from '../endpoints/getEndpointNameFromType';
+import getEndpointNameFromType from '../../endpoints/helpers/getEndpointNameFromType';
 
 const createReducersFromEndpoints = (customStates, resetActionType) => {
   const reducers = {};
@@ -24,18 +23,29 @@ const createReducersFromEndpoints = (customStates, resetActionType) => {
 
     reducers[endpointNamespace] = (state = { ...initialState }, action) => {
       const {
-        type, ...rest
+        called, data, error, loading, onRequest, onSuccess, onError, type
       } = action;
+
+      const rest = {
+        called, data, error, loading
+      };
 
       if (endpointsActionTypes[type]) {
         const endpointName = getEndpointNameFromType(type);
+        const shouldCallOnRequest = typeof onRequest === 'function' && type === endpointName;
+        const shouldCallOnSuccess = typeof onSuccess === 'function' && type === `${endpointName}_SUCCESS`;
+        const shouldCallOnError = typeof onError === 'function' && type === `${endpointName}_ERROR`;
+
+        const getNewScopeState = () => {
+          if (shouldCallOnRequest) return onRequest(state[endpointName], action);
+          if (shouldCallOnSuccess) return onSuccess(state[endpointName], action);
+          if (shouldCallOnError) return onError(state[endpointName], action);
+          return { ...state[endpointName], ...rest };
+        };
 
         return {
           ...state,
-          [endpointName]: {
-            ...state[endpointName],
-            ...rest
-          }
+          [endpointName]: getNewScopeState()
         };
       }
 

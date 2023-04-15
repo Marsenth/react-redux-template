@@ -1,4 +1,4 @@
-import createReducers from '../helpers/reducers/createReducers';
+import createReducers from './helpers/createReducers';
 import customStates from './customStates';
 
 export default createReducers({

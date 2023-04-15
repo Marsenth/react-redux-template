@@ -1,11 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import useHomeActions from '../redux/actions/home';
 import '../static/styles/home.sass';
 
 const Home = ({ children }) => {
   const { welcomeAction } = useHomeActions();
-  welcomeAction();
+
+  useEffect(() => {
+    welcomeAction();
+  }, []);
 
   return (
     <Fragment>

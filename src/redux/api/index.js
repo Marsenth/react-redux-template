@@ -1,19 +1,31 @@
 import axios from 'axios';
-import endpoints from '../endpoints';
+import { endpointsInNamespaces } from '../endpoints';
+import states from '../reducers/customStates';
 
 const api = ({ dispatch }) => (next) => (action) => {
   const {
+    data,
     endpoint,
     method,
-    data
+    onError,
+    onRequest,
+    onSuccess,
+    reducerName
   } = action;
 
-  const requestURL = endpoints[endpoint];
+  const scopeOnEndpoints = endpointsInNamespaces[reducerName];
+  const scopeOnStates = states[reducerName];
+  const scopeExists = !!scopeOnEndpoints || !!scopeOnStates;
+
+  if (!scopeExists) throw new Error('Most pass a valid scopeName');
+
+  const requestURL = scopeOnEndpoints?.[endpoint];
 
   const nextAction = {
     ...(requestURL ? {
       called: true,
       loading: true,
+      onRequest,
       type: endpoint
     } : action)
   };
@@ -40,21 +52,23 @@ const api = ({ dispatch }) => (next) => (action) => {
         data: response.data,
         error: null,
         loading: false,
+        onSuccess,
         type: `${endpoint}_SUCCESS`
       });
 
-      dispatch(successDispatch());
+      dispatch({ ...successDispatch(), reducerName });
     }).catch((error) => {
       const status = (error.response || {}).status || 404;
 
       const errorDispatch = () => ({
         error,
         loading: false,
-        status,
-        type: `${endpoint}_ERROR`
+        onError,
+        type: `${endpoint}_ERROR`,
+        status
       });
 
-      dispatch(errorDispatch());
+      dispatch({ ...errorDispatch(), reducerName });
     });
   }
 

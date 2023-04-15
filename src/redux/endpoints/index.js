@@ -1,5 +1,5 @@
-import getActionTypesFromEndpoints from '../helpers/actionTypes/endpoints';
-import destructNamespaces from '../helpers/endpoints/destructNamespaces';
+import getActionTypesFromEndpoints from './helpers/getActionTypesFromEndpoints';
+import destructNamespaces from './helpers/destructNamespaces';
 import auth from './auth';
 
 export const endpointsInNamespaces = {
